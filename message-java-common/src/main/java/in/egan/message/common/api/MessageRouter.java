@@ -10,8 +10,30 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-
 /**
+ * <pre>
+ * 支付消息路由器，通过代码化的配置，把来自支付的消息交给handler处理
+ *
+ * 说明：
+ * 1. 配置路由规则时要按照从细到粗的原则，否则可能消息可能会被提前处理
+ * 2. 默认情况下消息只会被处理一次，除非使用 {@link MessageRouterRule#next()}
+ * 3. 规则的结束必须用{@link MessageRouterRule#end()}或者{@link MessageRouterRule#next()}，否则不会生效
+ *
+ * 使用方法：
+ * MessageRouter router = new MessageRouter();
+ * router
+ *   .rule()
+ *       .msgType("App").event("EVENT").eventKey("EVENT_KEY").content("CONTENT")
+ *       .interceptor(interceptor, ...).handler(handler, ...)
+ *   .end()
+ *   .rule()
+ *       // 另外一个匹配规则
+ *   .end()
+ * ;
+ *
+ * // 将Message交给消息路由器
+ * router.route(message);
+ * </pre>
  * 消息路由
  * @author: egan
  * @email egzosn@gmail.com
