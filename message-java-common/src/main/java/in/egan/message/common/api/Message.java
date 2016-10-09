@@ -22,7 +22,7 @@ public class Message {
     private String eventKey;
     private String title;
     private String subject;
-    private String description;
+    private String describe;
     private String content;
     private Timestamp createTime;
     private Long msgId;
@@ -83,12 +83,12 @@ public class Message {
         this.subject = subject;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescribe() {
+        return describe;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 
     public String getContent() {
@@ -125,7 +125,7 @@ public class Message {
                 ", eventKey='" + eventKey + '\'' +
                 ", title='" + title + '\'' +
                 ", subject='" + subject + '\'' +
-                ", description='" + description + '\'' +
+                ", describe='" + describe + '\'' +
                 ", content='" + content + '\'' +
                 ", createTime=" + createTime +
                 ", msgId=" + msgId +

@@ -27,8 +27,8 @@ public class MessageRouterRule {
     private List<MessageEvent> events = new ArrayList<>();
     private String eventKey;
     private boolean async = false;
-    private String discount;
-    private String rDiscount;
+    private String describe;
+    private String rDescribe;
     private String subject;
     private String rSubject;
     private String content;
@@ -42,6 +42,7 @@ public class MessageRouterRule {
 
 
     public MessageRouterRule(MessageRouter messageRouter) {
+
         this.messageRouter = messageRouter;
     }
 
@@ -111,11 +112,11 @@ public class MessageRouterRule {
     /**
      * 如果discount等于某值
      *
-     * @param discount
+     * @param describe
      * @return
      */
-    public MessageRouterRule discount(String discount) {
-        this.discount = discount;
+    public MessageRouterRule describe(String describe) {
+        this.describe = describe;
         return this;
     }
 
@@ -125,13 +126,13 @@ public class MessageRouterRule {
      * @param regex
      * @return
      */
-    public MessageRouterRule rDiscount(String regex) {
-        this.rDiscount = regex;
+    public MessageRouterRule rDescribe(String regex) {
+        this.rDescribe = regex;
         return this;
     }
 
     /**
-     * 如果discount等于某值
+     * 如果subject等于某值
      *
      * @param subject
      * @return
@@ -142,13 +143,33 @@ public class MessageRouterRule {
     }
 
     /**
-     * 如果discount匹配该正则表达式
+     * 如果subject匹配该正则表达式
      *
      * @param regex
      * @return
      */
     public MessageRouterRule rSubject(String regex) {
         this.rSubject = regex;
+        return this;
+    }
+    /**
+     * 如果content等于某值
+     *
+     * @param content
+     * @return
+     */
+    public MessageRouterRule content(String content) {
+        this.content = content;
+        return this;
+    }
+    /**
+     * 如果content匹配该正则表达式
+     *
+     * @param regex
+     * @return
+     */
+    public MessageRouterRule rContent(String regex) {
+        this.rContent = regex;
         return this;
     }
 
@@ -290,6 +311,11 @@ public class MessageRouterRule {
                         &&
                         (null == this.rContent || Pattern
                                 .matches(this.rContent, null == message.getContent() ? "" : message.getContent().trim()))
+                        &&
+                        (null == this.describe|| this.describe.equals(null == message.getDescribe() ? null : message.getDescribe().trim()))
+                        &&
+                        (null == this.rDescribe || Pattern
+                                .matches(this.rDescribe, null == message.getDescribe() ? "" : message.getDescribe().trim()))
 
 
         );
@@ -366,20 +392,40 @@ public class MessageRouterRule {
         this.eventKey = eventKey;
     }
 
-    public String getDiscount() {
-        return discount;
+    public MessageRouter getMessageRouter() {
+        return messageRouter;
     }
 
-    public void setDiscount(String discount) {
-        this.discount = discount;
+    public String getDescribe() {
+        return describe;
     }
 
-    public String getrDiscount() {
-        return rDiscount;
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 
-    public void setrDiscount(String rDiscount) {
-        this.rDiscount = rDiscount;
+    public String getrDescribe() {
+        return rDescribe;
+    }
+
+    public void setrDescribe(String rDescribe) {
+        this.rDescribe = rDescribe;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getrContent() {
+        return rContent;
+    }
+
+    public void setrContent(String rContent) {
+        this.rContent = rContent;
     }
 
     public String getSubject() {
